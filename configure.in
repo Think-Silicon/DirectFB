@@ -1914,6 +1914,7 @@ savage=no
 sh772x=no
 sis315=no
 tdfx=no
+unema=no
 unichrome=no
 vdpau=no
 vmware=no
@@ -1928,7 +1929,7 @@ AC_ARG_WITH(gfxdrivers,
                            [drivers), none (builds none), ati128, cle266,]
                            [cyber5k, davinci, ep9x, gp2d, gl, gles2, i810, i830, mach64,]
                            [matrox, neomagic, nsc, nvidia, omap, pvr2d, pxa3xx,]
-                           [radeon, savage, sh772x, sis315, tdfx, unichrome,]
+                           [radeon, savage, sh772x, sis315, tdfx, unema, unichrome,]
                            [vdpau, vmware. @<:@default=all@:>@]),
             [gfxdrivers="$withval"], [gfxdrivers=all])
 if test "$gfxdrivers" = "all"; then
@@ -1955,6 +1956,7 @@ if test "$gfxdrivers" = "all"; then
   checkfor_sh772x=yes
   checkfor_sis315=yes
   checkfor_tdfx=yes
+  checkfor_unema=yes
   checkfor_unichrome=no
   checkfor_vdpau=yes
   checkfor_vmware=no
@@ -2034,6 +2036,9 @@ else
                   ;;
           tdfx)
                   checkfor_tdfx=yes
+                  ;;
+          unema)
+                  checkfor_unema=yes
                   ;;
           unichrome)
                   checkfor_unichrome=yes
@@ -2185,6 +2190,10 @@ fi
 
 if test "$checkfor_tdfx" = "yes"; then
   tdfx=yes
+fi
+
+if test "$checkfor_unema" = "yes"; then
+  unema=yes
 fi
 
 if test "$checkfor_unichrome" = "yes" && test "$have_sysio" = "yes"; then
@@ -2662,6 +2671,7 @@ AM_CONDITIONAL(GFX_SAVAGE, test "$savage" = "yes")
 AM_CONDITIONAL(GFX_SH772X, test "$sh772x" = "yes")
 AM_CONDITIONAL(GFX_SIS315, test "$sis315" = "yes")
 AM_CONDITIONAL(GFX_TDFX, test "$tdfx" = "yes")
+AM_CONDITIONAL(GFX_UNEMA, test "$unema" = "yes")
 AM_CONDITIONAL(GFX_UNICHROME, test "$unichrome" = "yes")
 AM_CONDITIONAL(GFX_VMWARE, test "$vmware" = "yes")
 AM_CONDITIONAL(GFX_VDPAU, test "$vdpau" = "yes")
@@ -2912,6 +2922,7 @@ gfxdrivers/savage/Makefile
 gfxdrivers/sh772x/Makefile
 gfxdrivers/sis315/Makefile
 gfxdrivers/tdfx/Makefile
+gfxdrivers/unema/Makefile
 gfxdrivers/unichrome/Makefile
 gfxdrivers/vdpau/Makefile
 gfxdrivers/vmware/Makefile
@@ -3102,6 +3113,7 @@ fi
 if test "$have_linux" = "yes"; then
 AC_MSG_RESULT([
 Building Graphics Drivers:
+  Think Silicon uNema       $unema
   3Dfx Voodoo               $tdfx
   ATI Mach64                $mach64
   ATI Rage 128              $ati128
